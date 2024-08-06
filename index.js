@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
     for (let i=0;i<data.length; i++) {
         data[i].properties.water_body_type = data[i].properties.water_body_type.replace("10020","Lake").replace("10021","Strait").replace("10022","Sea").replace("10023","River").replace("10024","Bayou").replace(";",",")
     }
-    res.render("homepage", { title: "Ferries", data });
+    res.render("homepage", { title: "BOATS!!!!!!", data });
 } catch (error) {
     console.error("error in GET /", error);
 }
@@ -44,11 +44,24 @@ app.get("/update-cobj", async (req, res) => {
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
 app.post("/update-cobj", async (req, res) => {
-  const newFerry = {
-    properties: {
-      name: req.body.name,
-    },
-  };
+    console.log(req.body);
+    let water_body_type =[];
+    req.body?.['10020'] == 'on' ? water_body_type.push('10020') : ""
+    req.body?.['10021'] == 'on' ? water_body_type.push('10021'):""
+    req.body?.['10022'] == 'on' ? water_body_type.push('10022'):""
+    req.body?.['10023'] == 'on' ? water_body_type.push('10023'):""
+    req.body?.['10024'] == 'on' ? water_body_type.push('10024'):""
+
+    const newFerry = {
+      properties: {
+        name: req.body.name,
+        port: req.body.port,
+        ext_ferry_id: req.body.ext_ferry_id,
+        water_body_type: water_body_type.join(";")
+      },
+    };
+
+    console.log(newFerry);
 
   const createFerry = {
     url: `https://api.hubspot.com/crm/v3/objects/2-33015884`,

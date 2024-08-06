@@ -7,9 +7,19 @@ html
     body    
         h1 Updates
         a(href='/') Return To Homepage
-        input(type="text", name="name", placeholder="Ferry Name")
-        input(type="text", name="port", placeholder="Port")
-        input(type="text", name="ext_ferry_id", placeholder="Ferry ID (required)")
-        p Water Body Type - Select all that apply
-        p Lake
-        input(type="checkbox", name="Lake")
+        form(id="new-ferry", action="/update-cobj", method="post")
+          input(type="text", name="name", placeholder="Ferry Name")
+          input(type="text", name="port", placeholder="Port")
+          input(type="text", name="ext_ferry_id", placeholder="Ferry ID (required)")
+          p Water Body Type - Select all that apply
+          p Lake
+          input(type="checkbox", name="10020")
+          p Strait
+          input(type="checkbox", name="10021")
+          p Sea
+          input(type="checkbox", name="10022")
+          p River
+          input(type="checkbox", name="10023")
+          p Bayou
+          input(type="checkbox", name="10024")
+          input(type="submit" value="Create Ferry")
