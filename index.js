@@ -26,7 +26,10 @@ app.get("/", async (req, res) => {
   try {
     const resp = await axios(getFerries);
     const data = resp.data.results;
-    res.render("homepage", { title: "Update Custom Object Form | Integrating With HubSpot I Practicum.", data });
+    for (let i=0;i<data.length; i++) {
+        data[i].properties.water_body_type = data[i].properties.water_body_type.replace("10020","Lake").replace("10021","Strait").replace("10022","Sea").replace("10023","River").replace("10024","Bayou").replace(";",",")
+    }
+    res.render("homepage", { title: "Ferries", data });
 } catch (error) {
     console.error("error in GET /", error);
 }

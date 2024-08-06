@@ -6,16 +6,18 @@ html
         link(rel="stylesheet", href="/css/style.css")
     body    
         h1 Homepage
+        a(href='/update-cobj') Add/Update this table
         if data
-         table
-          tr
-            th Name
-            th Port
-            th Ferry ID
-            th Water Body Type
-          each ferry in data
-            td #{ferry.properties.name}
-            td #{ferry.properties.port}
-            td #{ferry.properties.ext_ferry_id}
-            td #{ferry.properties.water_body_type}
+          table
+            tr
+              th Name
+              th Port
+              th Ferry ID
+              th Water Body Type
+            each ferry in data
+              tr
+                td #{ferry.properties.name}
+                td #{ferry.properties.port}
+                td #{ferry.properties.ext_ferry_id}
+                td #{ferry.properties.water_body_type}
         

@@ -10,6 +10,18 @@ h1 {
     margin: 1rem;
 }
 
+table {
+    padding: 1em;
+    border: solid 4px maroon;
+    border-collapse: collapse;
+    box-shadow: 3px 2px 6px maroon;
+    width: 80%;
+}
+th,td {
+    border: solid 1px maroon;
+}
+
+
 .cards {
     display: flex;
     align-items: center;
