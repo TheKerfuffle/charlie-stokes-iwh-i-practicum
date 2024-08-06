@@ -13,31 +13,57 @@ const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_TOKEN;
 
 // TODO: ROUTE 1 - Create a new app.get route for the homepage to call your custom object data. Pass this data along to the front-end and create a new pug template in the views folder.
 
-app.get("/", async (req, res) => {});
+app.get("/", async (req, res) => {
+  const getFerries = {
+    url: `https://api.hubspot.com/crm/v3/objects/2-33015884?properties=name,ext_ferry_id,port,water_body_type`,
+    method: "get",
+    headers: {
+      Authorization: `Basic ${PRIVATE_APP_ACCESS}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const resp = await axios.get(getFerries);
+    const data = resp.data.results;
+    res.render("homepage", { title: "Update Custom Object Form | Integrating With HubSpot I Practicum.", data });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 // TODO: ROUTE 2 - Create a new app.get route for the form to create or update new custom object data. Send this data along in the next route.
 
 app.get("/update-cobj", async (req, res) => {
-
-    const contacts = 'https://api.hubspot.com/crm/v3/objects/contacts';
-    const headers = {
-        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-        'Content-Type': 'application/json'
-    }
-    try {
-        const resp = await axios.get(contacts, { headers });
-        const data = resp.data.results;
-        res.render('updates', { title: 'Update Custom Object Form | Integrating With HubSpot I Practicum.', data });      
-    } catch (error) {
-        console.error(error);
-    }
+    res.render("updates", { title: "Update Custom Object Form | Integrating With HubSpot I Practicum." });
 });
 
 // TODO: ROUTE 3 - Create a new app.post route for the custom objects form to create or update your custom object data. Once executed, redirect the user to the homepage.
 
-app.post("/update-cobj", async (req,res) => {
+app.post("/update-cobj", async (req, res) => {
+  const newFerry = {
+    properties: {
+      name: req.body.name,
+    },
+  };
 
-})
+  const getFerries = {
+    url: `https://api.hubspot.com/crm/v3/objects/2-33015884`,
+    method: "get",
+    headers: {
+      Authorization: `Basic ${PRIVATE_APP_ACCESS}`,
+      "Content-Type": "application/json",
+    },
+    data: newFerry,
+  };
+
+  try {
+    await axios(getFerries);
+    res.redirect("/");
+  } catch (error) {
+    console.error("error in POST /update-cobj", error);
+  }
+});
 
 /** 
 * * This is sample code to give you a reference for how you should structure your calls. 
