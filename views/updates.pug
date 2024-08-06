@@ -7,8 +7,9 @@ html
     body    
         h1 Updates
         a(href='/') Return To Homepage
-        //- .cards 
-        //-     each ferry in data
-        //-         .card 
-        //-             h2.card__name #{contact.properties.firstname}  #{contact.properties.lastname}
-        //-             p.card__email #{contact.properties.email}
+        input(type="text", name="name", placeholder="Ferry Name")
+        input(type="text", name="port", placeholder="Port")
+        input(type="text", name="ext_ferry_id", placeholder="Ferry ID (required)")
+        p Water Body Type - Select all that apply
+        p Lake
+        input(type="checkbox", name="Lake")
